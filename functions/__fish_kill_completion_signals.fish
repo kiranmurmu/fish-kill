@@ -14,7 +14,6 @@ function __fish_make_completion_signals --description 'Make list of kill signals
       "14 ALRM" "15 TERM" "16 URG" "17 STOP" "18 TSTP" "19 CONT" "20 CHLD" \
       "21 TTIN" "22 TTOU" "23 IO" "24 XCPU" "25 XFSZ" "26 VTALRM" "27 PROF" \
       "28 WINCH" "29 PWR" "30 USR1" "31 USR2" "32 RTMIN" "64 RTMAX"
-    alias kill.exe="kill"
     return
   end
 
@@ -42,17 +41,5 @@ function __fish_make_completion_signals --description 'Make list of kill signals
     kill -L | string trim | string replace -ra '   *' \n | while read -l signo signame
       set -a __kill_signals "$signo $signame"
     end
-  end
-end
-
-# Do not show error status when using specific kill commands.
-function kill
-  if string match -qr '(-l|--list|-V|--version)' -- $argv
-    command kill (__fish_expand_pid_args $argv) 2>/dev/null
-    if test $status -eq 1
-      return
-    end
-  else
-    command kill (__fish_expand_pid_args $argv)
   end
 end
