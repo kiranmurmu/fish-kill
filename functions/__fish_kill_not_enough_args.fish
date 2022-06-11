@@ -14,6 +14,7 @@ function __fish_make_completion_signals --description 'Make list of kill signals
       "14 ALRM" "15 TERM" "16 URG" "17 STOP" "18 TSTP" "19 CONT" "20 CHLD" \
       "21 TTIN" "22 TTOU" "23 IO" "24 XCPU" "25 XFSZ" "26 VTALRM" "27 PROF" \
       "28 WINCH" "29 PWR" "30 USR1" "31 USR2" "32 RTMIN" "64 RTMAX"
+    alias kill.exe="kill"
     return
   end
 
@@ -55,11 +56,3 @@ function kill
     command kill (__fish_expand_pid_args $argv)
   end
 end
-
-set -l os (uname -o)
-if string match -q 'CYGWIN*' -- $os
-  or string match -iq Msys -- $os
-  alias kill.exe="kill"
-end
-
-set -e os
